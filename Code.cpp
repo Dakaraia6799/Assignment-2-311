@@ -1,16 +1,50 @@
 #include <stdio.h>
 #include <iostream>
 
-struct BstNode{
+struct ADT{
     
     char peopleData; 
-    BstNode* left;
-    BstNode* right;
+    Human* left;
+    Human* right;
 };
 
-BstNode* GetNewNode(char peopleData){
+struct Human{
+  // The people's id/info
+    std::string name;
+    int dayBirth, monthBirth, yearBirth;
+
+    Human() = default;
+    Human(std::string name, int dayBirth, int monthBirth, int yearBirth){
+        this->name = name;
+        this->dayBirth = dayBirth;
+        this->monthBirth = monthBirth;
+        this->yearBirth = yearBirth;
+    }
+    explicit Human(std::string name) {
+        this->name = name;
+        this->dayBirth = this->monthBirth = this->yearBirth = -1;
+    }
+
+    // Checks if names are equal
+    friend bool operator == (const Human &lhs, const Human& rhs) {
+        return (lhs.name == rhs.name);
+    }
+
+    // Checks if names are'nt equal
+    friend bool operator != (const Human &lhs, const Human& rhs){
+        return (lhs.name != rhs.name);
+    }
+
+    //  toString method that prints name & date of birth
+    friend std::ostream& operator << (std::ostream& o, const Human& p){
+        return o << p.name << ", " << p.monthBirth << "/" << p.dayBirth << "/" << p.yearBirth;
+    }
+
+};
+
+Human* GetNewNode(char peopleData){
     
-    BstNode* newNode = new BstBode();
+    Human* newNode = new Human();
     newNode->peopleData = peopleData; 
     newNode->left = newNode->right = NULL;
     return newNode;
@@ -24,7 +58,7 @@ bool Search(BstNode* root, char peopleData){
     else return Search (root->right, peopleData);
 }
 
-BstNode* Insert(BstNode* root, char peopleData){
+Human* Insert(Human* root, char peopleData){
     if(root == NULL){
         root = GetNewNode(peopleData); // sets root as the adress of new node
     }
@@ -39,7 +73,7 @@ BstNode* Insert(BstNode* root, char peopleData){
 
 int main(){
     
-    BstNode* root = NULL; //Creates a empty tree
+    Human* root = NULL; //Creates a empty tree
     root = Insert(root, const char* "Carl");
     root = Insert(root, const char* "Mike");
     root = Insert(root, const char* "Greg");
