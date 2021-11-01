@@ -30,7 +30,7 @@ struct Human{
         return (lhs.name == rhs.name);
     }
 
-    // Checks if names are'nt equal
+    // Checks if names aren't equal
     friend bool operator != (const Human &lhs, const Human& rhs){
         return (lhs.name != rhs.name);
     }
